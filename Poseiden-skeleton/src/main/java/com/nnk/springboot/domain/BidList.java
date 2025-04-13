@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter @Setter
@@ -16,21 +15,27 @@ public class BidList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bidListId;
 
+    @NotBlank(message = "Un compte est obligatoire")
     @Column(nullable = false)
     private String account;
 
+    @NotBlank(message = "Un type est obligatoire")
     @Column(nullable = false)
     private String type;
 
+    @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
     @Column
     private Double bidQuantity;
 
+    @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
     @Column
     private Double askQuantity;
 
+    @Digits(integer = 10, fraction = 2, message = "Le montant doit être une valeur numérique")
     @Column
     private Double bid;
 
+    @Digits(integer = 10, fraction = 2, message = "Le montant doit être une valeur numérique")
     @Column
     private Double ask;
 
