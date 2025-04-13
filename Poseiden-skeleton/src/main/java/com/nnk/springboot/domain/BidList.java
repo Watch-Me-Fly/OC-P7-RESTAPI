@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 @Getter @Setter
-@Entity @Table(name = "bidlist")
+@Entity @Table(name = "BidList")
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
