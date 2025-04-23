@@ -19,10 +19,10 @@ public class BidListService {
     // create __________________________________
     public void createBidList(BidList bidList) {
         log.info("[BidListService] - Entered createBidList");
-        if (bidList.getAccount() == null) {
+        if (bidList.getAccount() == null || bidList.getAccount().isEmpty()) {
             throw new IllegalArgumentException("Un compte est obligatoire");
         }
-        if (bidList.getType() == null) {
+        if (bidList.getType() == null || bidList.getType().isEmpty()) {
             throw new IllegalArgumentException("Un type est obligatoire");
         }
         try {
@@ -62,7 +62,7 @@ public class BidListService {
                 throw new IllegalArgumentException("Le bidList n'existe pas");
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error("[BidListService] - error updating bidList : {}", e.getMessage());
             throw new RuntimeException("Erreur à la mise à jour : " + e.getMessage());
         }
     }
@@ -79,7 +79,7 @@ public class BidListService {
                 throw new IllegalArgumentException("Le bidList n'existe pas");
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error("[BidListService] - error deleting bidList {}", e.getMessage());
             throw new RuntimeException("Erreur à la suppression : " + e.getMessage());
         }
     }
