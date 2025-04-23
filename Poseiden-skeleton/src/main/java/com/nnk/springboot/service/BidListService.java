@@ -52,12 +52,12 @@ public class BidListService {
 
     // update __________________________________
     public void updateBidList(BidList bidList) {
+        log.info("[BidListService] - Entered updateBidList");
         try {
             if (bidListRepository.existsById(bidList.getBidListId())) {
                 bidListRepository.save(bidList);
                 log.info("[BidListService] - Exit updateBidList");
             } else {
-                // TODO : translate bidList
                 log.error("[updateBidList] - Le bidList n'existe pas");
                 throw new IllegalArgumentException("Le bidList n'existe pas");
             }
