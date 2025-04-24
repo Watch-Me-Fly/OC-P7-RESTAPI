@@ -22,8 +22,7 @@ public class TradeService {
         log.info("[TradeService] - Entered createTrade");
 
         if (trade == null) {
-            // todo : translate
-            throw new IllegalArgumentException("Trade est null");
+            throw new IllegalArgumentException("Transaction est nulle");
         }
         try {
             tradeRepository.save(trade);
@@ -58,7 +57,7 @@ public class TradeService {
     public void updateTrade(Trade trade) {
         log.info("[TradeService] -  Entered updateTrade");
         try {
-            Trade oldTrade = tradeRepository.findById(trade.getId())
+            Trade oldTrade = tradeRepository.findById(trade.getTradeId())
                     .orElse(null);
 
             if (oldTrade != null) {
@@ -66,11 +65,11 @@ public class TradeService {
                 log.info("[TradeService] - Exit updateTrade");
             } else {
                 log.error("[updateTrade] - trade is not found");
-                throw new IllegalArgumentException("Trade est non trouvé");
+                throw new IllegalArgumentException("Transaction est non trouvée");
             }
         } catch (Exception e) {
             log.error("[TradeService] - error updating trade : {}", e.getMessage());
-            throw new RuntimeException("Erreur à la mise à jour du point de courbe : " + e.getMessage());
+            throw new RuntimeException("Erreur à la mise à jour de la transaction : " + e.getMessage());
         }
     }
 
@@ -82,7 +81,7 @@ public class TradeService {
                 tradeRepository.deleteById(id);
             } else {
                 log.error("[deleteTrade] - trade not found");
-                throw new IllegalArgumentException("Trade est non trouvé");
+                throw new IllegalArgumentException("Transaction est non trouvée");
             }
         } catch (Exception e) {
             log.error("[updateBidList] - error deleting Trade {}", e.getMessage());

@@ -65,7 +65,7 @@ public class UserService {
             }
         } catch (Exception e) {
             log.error("[UserService] - error updating user : {}", e.getMessage());
-            throw new RuntimeException("Erreur à la mise à jour du point de courbe : " + e.getMessage());
+            throw new RuntimeException("Erreur à la mise à jour des informations : " + e.getMessage());
         }
     }
 

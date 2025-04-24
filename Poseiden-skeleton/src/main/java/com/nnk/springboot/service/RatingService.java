@@ -22,14 +22,13 @@ public class RatingService {
         log.info("[RatingService] - Entered createRating");
 
         if (rating == null) {
-            // todo : translate
-            throw new IllegalArgumentException("Rating est null");
+            throw new IllegalArgumentException("L'évaluation est null");
         }
         try {
             ratingRepository.save(rating);
             log.info("[RatingService] - Exit createRating");
         } catch (Exception e) {
-            log.error("[RatingService] - Error saving rating : " + e.getMessage());
+            log.error("[RatingService] - Error saving rating : {}", e.getMessage());
         }
     }
 
@@ -65,12 +64,12 @@ public class RatingService {
                 ratingRepository.save(rating);
                 log.info("[RatingService] - Exit updateRating");
             } else {
-                log.error("[updateRating] - curve point is not found");
-                throw new IllegalArgumentException("Le point de courbe est non trouvé");
+                log.error("[updateRating] - rating is not found");
+                throw new IllegalArgumentException("L'évaluation n'est pas trouvée");
             }
         } catch (Exception e) {
-            log.error("[RatingService] - error updating curve point : {}", e.getMessage());
-            throw new RuntimeException("Erreur à la mise à jour du point de courbe : " + e.getMessage());
+            log.error("[RatingService] - error updating rating : {}", e.getMessage());
+            throw new RuntimeException("Erreur à la mise à jour de l'évaluation : " + e.getMessage());
         }
     }
 
@@ -81,8 +80,8 @@ public class RatingService {
             if (ratingRepository.existsById(id)) {
                 ratingRepository.deleteById(id);
             } else {
-                log.error("[deleteRating] - curve point not found");
-                throw new IllegalArgumentException("Le point de courbe est non trouvés");
+                log.error("[deleteRating] - rating not found");
+                throw new IllegalArgumentException("L'évaluation n'est pas trouvée");
             }
         } catch (Exception e) {
             log.error("[updateBidList] - error deleting rating {}", e.getMessage());

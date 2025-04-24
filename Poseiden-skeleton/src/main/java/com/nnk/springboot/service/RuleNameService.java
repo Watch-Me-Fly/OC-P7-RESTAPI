@@ -22,8 +22,7 @@ public class RuleNameService {
         log.info("[RuleNameService] - Entered createRuleName");
 
         if (ruleName == null) {
-            // todo : translate
-            throw new IllegalArgumentException("ruleName est null");
+            throw new IllegalArgumentException("Le nom de la règle est null");
         }
         try {
             repository.save(ruleName);
@@ -65,12 +64,12 @@ public class RuleNameService {
                 repository.save(ruleName);
                 log.info("[RuleNameService] - Exit updateRuleName");
             } else {
-                log.error("[updateRuleName] - curve point is not found");
-                throw new IllegalArgumentException("Le point de courbe est non trouvé");
+                log.error("[updateRuleName] - rule name is not found");
+                throw new IllegalArgumentException("Le nom de la règle est non trouvé");
             }
         } catch (Exception e) {
-            log.error("[RuleNameService] - error upduleName curve point : {}", e.getMessage());
-            throw new RuntimeException("Erreur à la mise à jour du point de courbe : " + e.getMessage());
+            log.error("[RuleNameService] - error updating rule name : {}", e.getMessage());
+            throw new RuntimeException("Erreur à la mise à jour du nom de la règle : " + e.getMessage());
         }
     }
 
@@ -81,8 +80,8 @@ public class RuleNameService {
             if (repository.existsById(id)) {
                 repository.deleteById(id);
             } else {
-                log.error("[deleteRuleName] - curve point not found");
-                throw new IllegalArgumentException("Le point de courbe est non trouvés");
+                log.error("[deleteRuleName] - rule name not found");
+                throw new IllegalArgumentException("Le nom de la règle est non trouvés");
             }
         } catch (Exception e) {
             log.error("[updateBidList] - error deleting ruleName {}", e.getMessage());
