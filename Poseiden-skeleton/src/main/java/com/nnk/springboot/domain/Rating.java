@@ -16,14 +16,18 @@ public class Rating {
     private Integer id;
 
     @Column
+    @NotBlank(message = "La notation Moody's est obligatoire")
     private String moodysRating;
 
     @Column
+    @NotBlank(message = "La notation S&P est obligatoire")
     private String sandPRating;
 
     @Column
+    @NotBlank(message = "La notation Fitch est obligatoire")
     private String fitchRating;
 
     @Column
+    @NotNull(message = "Le numéro de la commande est obligatoire")
     private Integer orderNumber;
 }
