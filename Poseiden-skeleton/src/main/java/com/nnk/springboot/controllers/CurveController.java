@@ -1,6 +1,8 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.service.CurveService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,29 +14,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 
 @Controller
+@Slf4j
 public class CurveController {
-    // TODO: Inject Curve Point service
 
+    private final CurveService service;
+
+    public CurveController(CurveService service) {
+        this.service = service;
+    }
+
+    // ✅
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
+        model.addAttribute("curvePoints", service.getAllCurvePoints());
         return "curvePoint/list";
     }
 
+    // ✅
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid) {
         return "curvePoint/add";
     }
 
+    // ✅
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
-        return "curvePoint/add";
+    public String validate(@Valid CurvePoint curvePoint,
+                           BindingResult result,
+                           Model model) {
+        // if form is invalid, return
+        if (result.hasErrors()) {
+            return "curvePoint/add";
+        }
+        // create new curve point
+        service.createCurvePoint(curvePoint);
+        // return curve list
+        model.addAttribute("curvePointList", service.getAllCurvePoints());
+        return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id,
+                                 Model model) {
         // TODO: get CurvePoint by Id and to model then show to the form
         return "curvePoint/update";
     }
