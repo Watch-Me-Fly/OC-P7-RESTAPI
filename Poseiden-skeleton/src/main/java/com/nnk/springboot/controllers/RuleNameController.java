@@ -50,7 +50,7 @@ public class RuleNameController {
         // update model
         model.addAttribute("ruleName", service.getAllRuleNames());
         // redirect to the list of all rule names
-        return "ruleName/list";
+        return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/update/{id}")
