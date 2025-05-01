@@ -24,12 +24,12 @@ public class TradeController {
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
-        model.addAttribute("trade", service.getAllTrades());
+        model.addAttribute("trades", service.getAllTrades());
         return "trade/list";
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
+    public String addTrade(Trade bid) {
         return "trade/add";
     }
 
@@ -37,7 +37,6 @@ public class TradeController {
     public String validate(@Valid Trade trade,
                            BindingResult result,
                            Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
         // checks if valid, or returns to the add form
         if (result.hasErrors()) {
             return "trade/add";
@@ -52,7 +51,6 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
         model.addAttribute("trade", service.getTradeById(id));
         return "trade/update";
     }
