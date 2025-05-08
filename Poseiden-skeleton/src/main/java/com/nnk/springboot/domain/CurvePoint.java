@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,15 +15,18 @@ public class CurvePoint {
     private Integer id;
 
     @Column
+    @NotNull(message = "L'identifiant est obligatoire")
     private Integer curveId;
 
     @Column
     private Timestamp asOfDate;
 
     @Column
+    @NotNull(message = "")
     private Double term;
 
     @Column
+    @NotNull(message = "La valeur est obligatoire")
     private Double value;
 
     @Column

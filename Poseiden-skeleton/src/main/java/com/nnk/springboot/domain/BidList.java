@@ -15,12 +15,12 @@ public class BidList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bidListId;
 
-    @NotBlank(message = "Un compte est obligatoire")
     @Column(nullable = false)
+    @NotBlank(message = "Un compte est obligatoire")
     private String account;
 
-    @NotBlank(message = "Un type est obligatoire")
     @Column(nullable = false)
+    @NotBlank(message = "Un type est obligatoire")
     private String type;
 
     @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")

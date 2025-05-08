@@ -1,7 +1,7 @@
 package com.nnk.springboot.repository;
 
-import org.junit.jupiter.api.Test;
 import com.nnk.springboot.domain.Trade;
+import org.junit.jupiter.api.Test;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

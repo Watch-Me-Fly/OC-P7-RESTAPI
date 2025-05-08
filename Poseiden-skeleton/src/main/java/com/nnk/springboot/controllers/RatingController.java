@@ -1,6 +1,8 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.service.RatingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,14 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @Controller
+@Slf4j
 public class RatingController {
-    // TODO: Inject Rating service
+
+    private final RatingService service;
+
+    public RatingController(RatingService service) {
+        this.service = service;
+    }
 
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
-        // TODO: find all Rating, add to model
+        // show a list of all ratings
+        List<Rating> allRatings = service.getAllRatings();
+        // add to model
+        model.addAttribute("ratingsList", allRatings);
         return "rating/list";
     }
 
@@ -28,27 +41,48 @@ public class RatingController {
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
-        return "rating/add";
+    public String validate(@Valid Rating rating,
+                           BindingResult result,
+                           Model model) {
+        // if data is invalid, return
+        if (result.hasErrors()) {
+            return "rating/add";
+        }
+        // save new rating
+        service.createRating(rating);
+        // update model
+        model.addAttribute("ratingsList", service.getAllRatings());
+        return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Integer id,
+                                 Model model) {
+        model.addAttribute("rating", service.getRatingById(id));
         return "rating/update";
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+    public String updateRating(@PathVariable("id") Integer id,
+                               @Valid Rating rating,
+                               BindingResult result,
+                               Model model) {
+        // check required files, if invalid, return to form
+        if (result.hasErrors()) {
+            return "rating/update";
+        }
+        // update rating
+        rating.setId(id);
+        service.updateRating(rating);
+        // update model
+        model.addAttribute("ratingsList", service.getAllRatings());
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+        service.deleteRating(id);
+        model.addAttribute("ratingsList", service.getAllRatings());
         return "redirect:/rating/list";
     }
 }
