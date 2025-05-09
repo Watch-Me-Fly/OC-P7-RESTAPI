@@ -4,10 +4,11 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
+<div class="container vh-100 d-flex flex-column align-items-center justify-content-center">
 
 	<div class="row">
 		<h2>Add New User</h2>
@@ -16,31 +17,37 @@
 	<div class="row">
 		<form action="#" th:action="@{/user/validate}" th:object="${user}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
-				<label for="fullname" class="col-sm-2 control-label">Full Name</label>
+				<label for="fullname" class="form-label">Full Name</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{fullname}" id="fullname" placeholder="Full Name" class="col-4">
+					<input type="text" th:field="*{fullname}" id="fullname" placeholder="Full Name" class="form-control">
 					<p class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="username" class="col-sm-2 control-label">User Name</label>
+				<label for="username" class="form-label">User Name</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{username}" id="username" placeholder="User Name" class="col-4">
+					<input type="text" th:field="*{username}" id="username" placeholder="User Name" class="form-control">
 					<p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password" class="col-sm-2 control-label">Password</label>
+				<label for="password" class="form-label">Password</label>
 				<div class="col-sm-10">
-					<input type="password" th:field="*{password}" id="password" placeholder="Password" class="col-4">
+					<input type="password" th:field="*{password}" id="password" placeholder="Password" class="form-control">
 					<p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password" class="col-sm-2 control-label">Role</label>
+				<label for="password" class="form-label">Role</label>
 				<div class="col-sm-10">
-					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="ADMIN">Admin</label>
-					<label class="checkbox-inline"><input type="radio" th:field="*{role}" th:value="USER">User</label>
+					<label class="form-check-inline">
+						<input type="radio" th:field="*{role}" th:value="ADMIN">
+						Admin
+					</label>
+					<label class="form-check-inline">
+						<input type="radio" th:field="*{role}" th:value="USER">
+						User
+					</label>
 					<p class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
 				</div>
 			</div>
