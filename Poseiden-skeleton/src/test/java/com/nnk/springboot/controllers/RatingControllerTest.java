@@ -78,9 +78,11 @@ public class RatingControllerTest {
         when(service.getAllRatings()).thenReturn(Arrays.asList(rating));
 
         mockMvc.perform(post("/rating/validate")
+                .param("id", "1")
                 .param("moodysRating", rating.getMoodysRating())
                 .param("sandPRating", rating.getSandPRating())
                 .param("fitchRating", rating.getFitchRating())
+                .param("orderNumber", String.valueOf(rating.getOrderNumber()))
         )
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/rating/list"));
