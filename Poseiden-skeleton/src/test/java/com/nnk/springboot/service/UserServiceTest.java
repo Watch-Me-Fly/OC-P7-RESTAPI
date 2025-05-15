@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
@@ -20,6 +21,8 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository repository;
+    @Mock
+    private BCryptPasswordEncoder passwordEncoder;
     @InjectMocks
     private UserService service;
 
@@ -35,7 +38,7 @@ public class UserServiceTest {
         user.setFullname("John Doe");
         user.setRole("USER");
 
-        service = new UserService(repository);
+        service = new UserService(repository, passwordEncoder);
     }
 
     // Create _____________________________
@@ -43,6 +46,10 @@ public class UserServiceTest {
     @Test
     void createUser_success() {
         // Arrange
+        String password = user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+
+        when(passwordEncoder.encode(password)).thenReturn(encodedPassword);
         when(repository.save(any(User.class))).thenReturn(user);
         // Act
         service.createUser(user);
