@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -73,7 +74,7 @@ public class TradeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("trade/add"));
     }
-    /*
+
     @Test
     void testValidate_success() throws Exception {
         when(service.getAllTrades()).thenReturn(Arrays.asList(trade));
@@ -81,10 +82,9 @@ public class TradeControllerTest {
         mockMvc.perform(post("/trade/validate")
                         .param("account", trade.getAccount())
                         .param("type", trade.getType())
-                        .param("quantity", String.valueOf(trade.getBuyQuantity()))
-                        .param("sellQuantity", String.valueOf(trade.getSellQuantity()))
-                        .param("buyPrice", String.valueOf(trade.getBuyPrice()))
-                        .param("sellPrice", String.valueOf(trade.getSellPrice()))
+                        .param("quantity", String.valueOf(15.00))
+                        .param("sellQuantity", String.valueOf(0.0))
+                        .param("buyPrice", String.valueOf(500.25))
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/trade/list"));
@@ -92,7 +92,6 @@ public class TradeControllerTest {
         verify(service, times(1)).createTrade(any(Trade.class));
     }
 
-     */
     @Test
     void testValidate_fail() throws Exception {
         mockMvc.perform(post("/trade/validate")
@@ -134,8 +133,6 @@ public class TradeControllerTest {
     }
     @Test
     void testDeleteTrade() throws Exception {
-        when(service.getAllTrades()).thenReturn(Arrays.asList(trade));
-
         mockMvc.perform(get("/trade/delete/1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/trade/list"));
