@@ -73,7 +73,7 @@ public class BidListController {
             return "bidList/update";
         }
         // update bid
-        bidList.setBidListId(id);
+        bidList.setId(id);
         service.updateBidList(bidList);
         // update model for the list page
         model.addAttribute("bidLists", service.getAllBidLists());

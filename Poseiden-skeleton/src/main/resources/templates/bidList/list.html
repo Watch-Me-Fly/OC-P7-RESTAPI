@@ -19,8 +19,8 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 container d-flex justify-content-end">
-			Logged in user:
-			<b sec:authentication="name" class="user " th:text="${user.username}"></b>
+			Logged in user:&nbsp;
+			<b sec:authentication="name" class="text-primary" th:text="${user.username}"></b>
 			<form th:action="@{/app-logout}" method="POST" class="ms-3">
 				<input type="submit" value="Logout" />
 			</form>

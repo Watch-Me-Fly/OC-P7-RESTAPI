@@ -13,7 +13,8 @@ import java.sql.Timestamp;
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer bidListId;
+    @Column(name = "BidListId")
+    private Integer id;
 
     @Column(nullable = false)
     @NotBlank(message = "Un compte est obligatoire")
