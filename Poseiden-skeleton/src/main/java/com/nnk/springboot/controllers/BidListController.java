@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.BidListService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +23,14 @@ public class BidListController {
     }
 
     @RequestMapping("/bidList/list")
-    public String home(Model model)
+    public String home(Model model, HttpServletRequest request)
     {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
         // show a list of all bids
         model.addAttribute("bidLists", service.getAllBidLists());
         return "bidList/list";

@@ -1,5 +1,7 @@
 package com.nnk.springboot.config;
 
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,7 +32,11 @@ public class CustomSuccessAuthenticationHandler implements AuthenticationSuccess
         // Store the username in the session
         session.setAttribute("username", username);
 
-        // todo : check
-        response.sendRedirect("/user/profile");
+        User user = new User();
+        user.setUsername(username);
+
+        request.getSession().setAttribute("user", user);
+
+        response.sendRedirect("/bidList/list");
     }
 }
