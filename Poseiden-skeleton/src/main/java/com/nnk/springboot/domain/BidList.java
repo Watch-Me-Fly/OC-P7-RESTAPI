@@ -23,19 +23,19 @@ public class BidList {
     @NotBlank(message = "Un type est obligatoire")
     private String type;
 
-    @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
+    // @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
     @Column
     private Double bidQuantity;
 
-    @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
+    // @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
     @Column
     private Double askQuantity;
 
-    @Digits(integer = 10, fraction = 2, message = "Le montant doit être une valeur numérique")
+    // @Digits(integer = 10, fraction = 2, message = "Le montant doit être une valeur numérique")
     @Column
     private Double bid;
 
-    @Digits(integer = 10, fraction = 2, message = "Le montant doit être une valeur numérique")
+    // @Digits(integer = 10, fraction = 2, message = "Le montant doit être une valeur numérique")
     @Column
     private Double ask;
 
