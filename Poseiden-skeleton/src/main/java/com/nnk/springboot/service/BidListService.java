@@ -54,7 +54,7 @@ public class BidListService {
     public void updateBidList(BidList bidList) {
         log.info("[BidListService] - Entered updateBidList");
         try {
-            if (bidListRepository.existsById(bidList.getBidListId())) {
+            if (bidListRepository.existsById(bidList.getId())) {
                 bidListRepository.save(bidList);
                 log.info("[BidListService] - Exit updateBidList");
             } else {

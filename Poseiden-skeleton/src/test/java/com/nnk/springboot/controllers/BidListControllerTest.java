@@ -39,7 +39,7 @@ public class BidListControllerTest {
     @BeforeAll
     static void setUp() {
         bid = new BidList();
-        bid.setBidListId(1);
+        bid.setId(1);
         bid.setAccount("account");
         bid.setType("type X");
         bid.setBidQuantity(10.0);

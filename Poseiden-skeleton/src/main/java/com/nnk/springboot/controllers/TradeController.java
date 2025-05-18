@@ -1,7 +1,11 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.TradeService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +19,7 @@ import jakarta.validation.Valid;
 @Controller
 public class TradeController {
 
+    private static final Logger log = LoggerFactory.getLogger(TradeController.class);
     private final TradeService service;
 
     public TradeController(TradeService service) {
@@ -22,8 +27,14 @@ public class TradeController {
     }
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
+    public String home(Model model, HttpServletRequest request)
     {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
         model.addAttribute("trades", service.getAllTrades());
         return "trade/list";
     }

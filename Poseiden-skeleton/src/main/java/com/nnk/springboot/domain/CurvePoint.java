@@ -15,14 +15,13 @@ public class CurvePoint {
     private Integer id;
 
     @Column
-    @NotNull(message = "L'identifiant est obligatoire")
     private Integer curveId;
 
     @Column
     private Timestamp asOfDate;
 
     @Column
-    @NotNull(message = "")
+    @NotNull(message = "le term ne doit pas être nul")
     private Double term;
 
     @Column

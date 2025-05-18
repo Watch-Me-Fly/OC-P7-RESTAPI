@@ -4,17 +4,18 @@ import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Transactional
-@Log4j2
 @RequiredArgsConstructor
 public class RuleNameService {
 
+    private final static Logger log = LoggerFactory.getLogger(RuleNameService.class);
     private final RuleNameRepository repository;
 
     // create __________________________________
@@ -38,7 +39,7 @@ public class RuleNameService {
         try {
             return repository.findById(id).orElse(null);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage());
             throw new RuntimeException("Erreur à la restitution des données : " + e.getMessage());
         }
     }
