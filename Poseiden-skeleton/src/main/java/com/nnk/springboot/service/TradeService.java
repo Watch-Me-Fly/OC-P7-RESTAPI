@@ -4,17 +4,18 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Transactional
-@Log4j2
 @RequiredArgsConstructor
 public class TradeService {
 
+    private static final Logger log = LoggerFactory.getLogger(TradeService.class);
     private final TradeRepository tradeRepository;
 
     // create __________________________________
@@ -38,7 +39,7 @@ public class TradeService {
         try {
             return tradeRepository.findById(id).orElse(null);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage());
             throw new RuntimeException("Erreur à la restitution des données : " + e.getMessage());
         }
     }
