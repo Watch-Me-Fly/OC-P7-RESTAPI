@@ -33,8 +33,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> { auth
                         // Public access ------------------------------------------
-                        .requestMatchers("/login", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/user/list", "/user/add").permitAll()
+                        // static ressources
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        // authentication
+                        .requestMatchers("/login", "/app/login").permitAll()
+                        // user
+                        .requestMatchers("/user/add", "/user/validate", "/user/list").permitAll()
+                        .requestMatchers("/user/update/**", "/user/delete/**").permitAll()
+                        // other pages
+                        .requestMatchers("/").permitAll()
                         // limit access if not connected
                         .anyRequest().authenticated();
                 })
