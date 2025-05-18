@@ -1,8 +1,11 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.RatingService;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,15 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import jakarta.validation.Valid;
-
 import java.util.List;
 
 @Controller
-@Slf4j
 public class RatingController {
 
+    private static final Logger log = LoggerFactory.getLogger(RatingController.class);
     private final RatingService service;
 
     public RatingController(RatingService service) {
@@ -26,8 +27,14 @@ public class RatingController {
     }
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
+    public String home(Model model, HttpServletRequest request)
     {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
         // show a list of all ratings
         List<Rating> allRatings = service.getAllRatings();
         // add to model
