@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,14 +17,14 @@ public class Trade {
     private Integer tradeId;
 
     @NotBlank(message = "Un compte est obligatoire")
-    @Column(nullable = false)
+    @Column
     private String account;
 
     @NotBlank(message = "Un type est obligatoire")
-    @Column(nullable = false)
+    @Column
     private String type;
 
-    @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
+    // @Digits(integer = 10, fraction = 2, message = "La quantité doit être une valeur numérique")
     @Column
     private Double buyQuantity;
 

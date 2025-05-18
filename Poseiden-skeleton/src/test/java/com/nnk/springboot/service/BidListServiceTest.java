@@ -31,7 +31,7 @@ public class BidListServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         bid = new BidList();
-        bid.setBidListId(1);
+        bid.setId(1);
         bid.setAccount("account");
         bid.setType("type X");
         bid.setBidQuantity(10.0);
@@ -67,7 +67,7 @@ public class BidListServiceTest {
         // Arrange
         when(repository.findById(anyInt())).thenReturn(Optional.of(bid));
         // Act
-        BidList retrievedBidList = service.getBidList(bid.getBidListId());
+        BidList retrievedBidList = service.getBidList(bid.getId());
         // Assert
         assertNotNull(retrievedBidList);
         assertEquals(bid, retrievedBidList);
@@ -104,7 +104,7 @@ public class BidListServiceTest {
         // Arrange
         when(repository.existsById(anyInt())).thenReturn(true);
         // Act
-        service.deleteBidList(bid.getBidListId());
+        service.deleteBidList(bid.getId());
         // Assert
         verify(repository, times(1)).existsById(anyInt());
         verify(repository, times(1)).deleteById(anyInt());

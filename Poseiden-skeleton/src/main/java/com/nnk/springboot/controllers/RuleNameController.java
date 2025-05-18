@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.RuleNameService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +26,14 @@ public class RuleNameController {
     }
 
     @RequestMapping("/ruleName/list")
-    public String home(Model model)
+    public String home(Model model, HttpServletRequest request)
     {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
         // show a list of all rule names :
         List<RuleName> allNames = service.getAllRuleNames();
         model.addAttribute("ruleNamesList", allNames);
@@ -48,7 +56,7 @@ public class RuleNameController {
         // save new rule
         service.createRuleName(ruleName);
         // update model
-        model.addAttribute("ruleName", service.getAllRuleNames());
+        model.addAttribute("ruleNamesList", service.getAllRuleNames());
         // redirect to the list of all rule names
         return "redirect:/ruleName/list";
     }
@@ -73,14 +81,14 @@ public class RuleNameController {
         ruleName.setId(id);
         service.updateRuleName(ruleName);
         // get back the list
-        model.addAttribute("ruleName", service.getAllRuleNames());
+        model.addAttribute("ruleNamesList", service.getAllRuleNames());
         return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         service.deleteRuleName(id);
-        model.addAttribute("ruleName", service.getAllRuleNames());
+        model.addAttribute("ruleNamesList", service.getAllRuleNames());
         return "redirect:/ruleName/list";
     }
 }
