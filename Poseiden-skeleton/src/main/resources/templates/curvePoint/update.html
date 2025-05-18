@@ -4,32 +4,33 @@
 <head>
 <meta charset="utf-8"/>
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-	<div class="row">
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+	<div class="py-3">
 		<h2>Update CurvePoint</h2>
 	</div>
 
-	<div class="row">
+	<div class="py-3">
 		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<div class="form-group">
-				<label for="term" class="col-sm-2 control-label">Term</label>
+			<div class="form-group mt-3">
+				<label for="term" class="form-label">Term</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{term}" id="term" placeholder="Term" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
+					<input type="text" th:field="*{term}" id="term" placeholder="Term" class="form-control">
+					<p class="mt-2 text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="value" class="col-sm-2 control-label">Value</label>
+			<div class="form-group mt-3">
+				<label for="value" class="form-label">Value</label>
 				<div class="col-sm-10">
-					<input type="number" th:field="*{value}" id="value" placeholder="Value" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
+					<input type="number" th:field="*{value}" id="value" placeholder="Value" class="form-control">
+					<p class="mt-2 text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group mt-3">
 				<div class="col-sm-12">
 					<input type="hidden" th:field="*{id}">
 					<a class="btn btn-danger btn-sm" href="/curvePoint/list">Cancel</a>

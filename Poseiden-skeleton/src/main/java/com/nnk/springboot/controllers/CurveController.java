@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.CurveService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +26,14 @@ public class CurveController {
     }
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
+    public String home(Model model, HttpServletRequest request)
     {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
         model.addAttribute("curvePoints", service.getAllCurvePoints());
         return "curvePoint/list";
     }
