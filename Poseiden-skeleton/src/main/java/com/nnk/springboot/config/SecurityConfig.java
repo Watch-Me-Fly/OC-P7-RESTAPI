@@ -15,6 +15,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Configuration class for Spring Security.
+ *
+ * <ul>
+ *     <li>Set up HTTP security rules</li>
+ *     <li>password encoding</li>
+ *     <li>authentication management</li>
+ *     <li>login and logout handling using Spring Security</li>
+ * </ul>
+ *
+ * @author Saja
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -25,7 +37,18 @@ public class SecurityConfig {
     private final CustomFailureAuthenticationHandler failHandler = new CustomFailureAuthenticationHandler();
     private final CustomSuccessAuthenticationHandler successHandler = new CustomSuccessAuthenticationHandler();
 
-    // Manage authorizations
+    /**
+     * Define security filter chain for Http requests
+     *
+     * <p>
+     * Configures public access to ressources, pages, and operations.
+     * All other endpoints require authentication.
+     * </p>
+     *
+     * @param http the {@link HttpSecurity} to modify
+     * @return the configured {@link SecurityFilterChain}
+     * @throws Exception in case of configuration error
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         logger.info("Security Filter Chain");
@@ -68,14 +91,25 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // encrypt passwords
+    /**
+     * Provides a {@link BCryptPasswordEncoder} bean for password hashing.
+     *
+     * @return a new instance of {@link BCryptPasswordEncoder}
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         logger.info("Password Encoder");
         return new BCryptPasswordEncoder();
     }
 
-    // manage authentifications
+    /**
+     * Provides an {@link AuthenticationManager} bean using a {@link DaoAuthenticationProvider}
+     *
+     * @param userDetailsService the service used to load user data
+     * @param bCryptPasswordEncoder the encoder used to hash and verify passwords
+     * @return the configured {@link AuthenticationManager}
+     * @throws Exception if an errors occurs while building
+     */
     @Bean
     public AuthenticationManager authenticationManager(
             UserDetailsService userDetailsService,
