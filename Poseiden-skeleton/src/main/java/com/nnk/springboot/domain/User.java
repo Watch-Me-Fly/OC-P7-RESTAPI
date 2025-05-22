@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class User {
     @Column
     private String username;
 
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     @NotBlank(message = "Password is mandatory")
     @Column
     private String password;

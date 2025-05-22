@@ -15,6 +15,17 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Handles failed authentication events.
+ * <ul>
+ *     <li>Logs the failed attempt</li>
+ *     <li>Sets a 401 Http status</li>
+ *     <li>Redirects the user to login page</li>
+ *     <li>Returns a JSON error response</li>
+ * </ul>
+ *
+ * @author Saja
+ */
 @Component
 public class CustomFailureAuthenticationHandler implements AuthenticationFailureHandler {
 
@@ -22,6 +33,14 @@ public class CustomFailureAuthenticationHandler implements AuthenticationFailure
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * Called when a user's authentication fails
+     *
+     * @param request the Http request
+     * @param response the Http response
+     * @param exception the exception which was thrown to indicate the error
+     * @throws IOException if an input or an output exception occurs
+     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
