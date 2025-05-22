@@ -15,11 +15,28 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Handles successful authentication events.
+ * <p>
+ *     Used to store the authenticated username in HTTP session, and redirects to bid list page
+ * </p>
+ *
+ * @author Saja
+ */
 @Component
 public class CustomSuccessAuthenticationHandler implements AuthenticationSuccessHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CustomSuccessAuthenticationHandler.class);
 
+    /**
+     * Called when a user is authenticated successfully
+     *
+     * @param request the Http request
+     * @param response the Http response
+     * @param authentication the object containing user details
+     * @throws IOException if an input or output exception occurs
+     * @throws ServletException if a servlet-specific error occurs
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
